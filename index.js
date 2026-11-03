@@ -20,6 +20,7 @@ async function run() {
       throw new Error('GitHub token is required.');
     }
 
+    const prefix = process.env['INPUT_LABEL-PREFIX'] || 'size/';
     const xsMax = parseInt(process.env['INPUT_XS-MAX-SIZE'] || '10', 10);
     const sMax = parseInt(process.env['INPUT_S-MAX-SIZE'] || '50', 10);
     const mMax = parseInt(process.env['INPUT_M-MAX-SIZE'] || '250', 10);
@@ -29,21 +30,22 @@ async function run() {
     const deletions = pr.deletions || 0;
     const totalLines = additions + deletions;
 
-    let targetSize = 'size/XL';
+    let tier = 'XL';
     if (totalLines <= xsMax) {
-      targetSize = 'size/XS';
+      tier = 'XS';
     } else if (totalLines <= sMax) {
-      targetSize = 'size/S';
+      tier = 'S';
     } else if (totalLines <= mMax) {
-      targetSize = 'size/M';
+      tier = 'M';
     } else if (totalLines <= lMax) {
-      targetSize = 'size/L';
+      tier = 'L';
     }
 
+    const targetSize = `${prefix}${tier}`;
     console.log(`PR #${pr.number}: +${additions} -${deletions} (total: ${totalLines}) -> ${targetSize}`);
 
     const existingLabels = (pr.labels || []).map((l) => l.name);
-    const sizeLabels = ['size/XS', 'size/S', 'size/M', 'size/L', 'size/XL'];
+    const sizeLabels = ['XS', 'S', 'M', 'L', 'XL'].map((t) => `${prefix}${t}`);
     const currentSizeLabel = existingLabels.find((l) => sizeLabels.includes(l));
 
     if (currentSizeLabel === targetSize) {

@@ -10,6 +10,10 @@ inputs:
     description: 'GitHub token with pull-requests: write permission'
     required: false
     default: ${{ github.token }}
+  label-prefix:
+    description: 'Prefix for size labels (e.g. "size/", "pr/size-")'
+    required: false
+    default: 'size/'
   xs-max-size:
     description: 'Maximum lines changed for size/XS'
     required: false
