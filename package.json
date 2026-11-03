@@ -1,0 +1,9 @@
+{
+  "name": "pr-size-labeler",
+  "version": "1.0.0",
+  "description": "Automatically labels Pull Requests based on lines of code changed (XS, S, M, L, XL).",
+  "main": "index.js",
+  "author": "Enard52",
+  "license": "MIT",
+  "keywords": ["github-actions", "pull-request", "pr-labeler", "productivity", "automation"]
+}

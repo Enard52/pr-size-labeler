@@ -1,0 +1,32 @@
+name: 'PR Size Labeler'
+description: 'Automatically labels Pull Requests based on the total number of lines changed (XS, S, M, L, XL).'
+author: 'Enard52'
+branding:
+  icon: 'tag'
+  color: 'blue'
+
+inputs:
+  github-token:
+    description: 'GitHub token with pull-requests: write permission'
+    required: false
+    default: ${{ github.token }}
+  xs-max-size:
+    description: 'Maximum lines changed for size/XS'
+    required: false
+    default: '10'
+  s-max-size:
+    description: 'Maximum lines changed for size/S'
+    required: false
+    default: '50'
+  m-max-size:
+    description: 'Maximum lines changed for size/M'
+    required: false
+    default: '250'
+  l-max-size:
+    description: 'Maximum lines changed for size/L'
+    required: false
+    default: '1000'
+
+runs:
+  using: 'node20'
+  main: 'index.js'
